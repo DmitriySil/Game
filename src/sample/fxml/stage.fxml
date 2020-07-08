@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="menuPane" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="683.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.ControllerGame">
+    <children>
+        <ImageView fitHeight="683.0" fitWidth="1024.0" focusTraversable="true" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../images/stage/CityStreetBackground3.png" />
+            </image>
+        </ImageView>
+      <ProgressBar fx:id="health1" focusTraversable="false" layoutX="49.0" layoutY="7.0" prefHeight="15.0" prefWidth="141.0" progress="1.0" />
+      <ProgressBar fx:id="health2" focusTraversable="false" layoutX="827.0" layoutY="7.0" prefHeight="15.0" prefWidth="141.0" progress="1.0" />
+      <ProgressBar fx:id="ammunition1" layoutX="49.0" layoutY="22.0" maxHeight="15.0" maxWidth="200.0" prefHeight="15.0" prefWidth="141.0" progress="0.54">
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+      </ProgressBar>
+      <ProgressBar fx:id="ammunition2" focusTraversable="false" layoutX="827.0" layoutY="22.0" prefHeight="15.0" prefWidth="141.0" progress="1.0" />
+      <Label layoutX="10.0" layoutY="6.0" prefHeight="17.0" prefWidth="39.0" text="Health" textAlignment="CENTER" />
+      <Label layoutX="10.0" layoutY="21.0" prefHeight="17.0" prefWidth="39.0" text="Ammo" />
+      <Label layoutX="975.0" layoutY="21.0" prefHeight="17.0" prefWidth="39.0" text="Ammo" />
+      <Label layoutX="975.0" layoutY="6.0" prefHeight="17.0" prefWidth="39.0" text="Health" textAlignment="CENTER" />
+    </children>
+</AnchorPane>
