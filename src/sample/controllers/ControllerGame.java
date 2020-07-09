@@ -7,8 +7,10 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import sample.characters.Policeman;
-import sample.threads.PoliceThread;
+import sample.characters.PlayerVsPlayer;
+
+import sample.threads.PVsPThread;
+
 
 import java.net.URL;
 import java.time.LocalTime;
@@ -43,20 +45,7 @@ public class ControllerGame {
     private ImageView plateC,plateL,plateUPC,plateUPR,plateUPL;
 
     private List<ImageView> levelList;
-    private LinkedBlockingDeque<BonusImg> bonusDeque;
-    BonusImg bonusImg;
-    LocalTime time,bonusTime;
-    Random random;
-    boolean isBonus = false;
-    int bonusCount = 0;
-    int width = 30;
-    int height = 28;
-    int pos1x = 20;
-    int pos2x ;
-    int pos3x;
-    int pos1y = 155;
-    int pos2y;
-    int pos3y;
+
     @FXML
     void initialize() {
        health1.setStyle("-fx-accent: red;");
@@ -95,57 +84,17 @@ public class ControllerGame {
 //todo добавить панели
 
 
-        switch (bonusCount) {
-            case 0:if (!isBonus){
-                System.out.println("bonus create");
-                bonusImg = new BonusImg("/sample/images/bonus/HP.png");
-                bonusImg.setViewport(new Rectangle2D(0, 0, width, height));
-                bonusImg.relocate(pos1x, pos1y);bonusImg.setBonusCat(BonusCat.HP);
-                //menuPane.getChildren().add(bonusImg);
-                isBonus = true;
-            }
-                break;
-            case 1:
-                //System.out.println("1");
-            case 2:
-                // System.out.println("2");
-        }
-//            if (isBonus && time.plusSeconds(30).isBefore(LocalTime.now())){
-//                pane.getChildren().remove(bonus);
-//                time = LocalTime.now();
-//                isBonus = false;
-//            }
-        menuPane.getChildren().addAll(plateC,plateL,plateUPC,plateUPL,plateUPR,bonusImg);
-       // Bonus bonus = new Bonus(bonus,menuPane);
 
 
+        menuPane.getChildren().addAll(plateC,plateL,plateUPC,plateUPL,plateUPR);
 
-
-
-
-
-//        BonusThread bonusThread = new BonusThread(bonusImg,menuPane);
-//        bonusThread.start();
 
         if (Controller.player2){
-            Policeman policeman = null;
-            Policeman terrorist = null;
-            policeman = new Policeman(menuPane,health1,ammunition1,levelList,bonusImg);
-            //terrorist = new Terrorist(menuPane,health2,ammunition2,levelList);
-            System.out.println("police create");
-            PoliceThread policeThread = new PoliceThread(policeman);
-            policeThread.start();
-
-
-
-            //PoliceThread terror = new PoliceThread(terrorist);
-            //terror.start();
-
-
+            PlayerVsPlayer pvp = null;
+            pvp = new PlayerVsPlayer(menuPane,health1,health2,ammunition1,ammunition2,levelList);
+            System.out.println(" create");
+            PVsPThread pVsPThread = new PVsPThread(pvp);
+            pVsPThread.start();
         }
-
     }
-}
-enum BonusCat{
-    HP,ARMOR,AMMO
 }

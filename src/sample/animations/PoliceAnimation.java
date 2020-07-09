@@ -15,8 +15,9 @@ public class PoliceAnimation extends Transition {
     private final int columns;
     private int offSetX;
     private int offSetY;
-    private final int width;
-    private final int height;
+    private int width;
+    private int height;
+    private Duration duration;
 
     public PoliceAnimation(ImageView imageView, int count, int columns, int offSetX,
                      int offSetY, int width, int height, Duration duration) {
@@ -39,6 +40,26 @@ public class PoliceAnimation extends Transition {
         this.offSetY = y;
     }
 
+    public int getWidth() {
+        return width;
+    }
+    public void setWidth(int width) {
+        this.width = width;
+    }
+    public int getHeight() {
+        return height;
+    }
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public Duration getDuration() {
+        return duration;
+    }
+
+    public void setDuration(Duration duration) {
+        this.duration = duration;
+    }
 
     @Override
     protected void interpolate(double frac) {
