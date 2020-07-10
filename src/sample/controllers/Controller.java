@@ -5,18 +5,12 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 
 
@@ -35,65 +29,61 @@ public class Controller {
     private ImageView play;
 
     @FXML
+    private ImageView exit;
+
+    @FXML
     private ImageView settings;
 
     @FXML
-    private Button startButton;
+    private ImageView police;
+
+    @FXML
+    private ImageView terror;
     static boolean player1 = false;
     static boolean player2 = false;
 
     @FXML
     void initialize() {
-       // assert playGame != null : "fx:id=\"playGame\" was not injected: check your FXML file 'sample.fxml'.";
-        ImageView img = new ImageView("/sample/images/police_Jump.png");
-        img.relocate(100,100);
-
-        menuPane.getChildren().addAll(img);
-        menuPane.setOnKeyPressed(event -> {
-            System.out.println("d");
-            switch (event.getCode()){
-                case DOWN:img.relocate(img.getLayoutX()+15,img.getLayoutY());
-            }
-        });
 
         play.setOnMouseClicked(event -> {
             player2=true;
-            startButton.getScene().getWindow().hide();
 
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/sample/fxml/stage.fxml"));
-
+           play.getScene().getWindow().hide();
             try {
-                loader.load();
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("/sample/fxml/stage.fxml"));
+                AnchorPane game = loader.load();
+                Stage gameStage = new Stage();
+                gameStage.initOwner(play.getScene().getWindow());
+                gameStage.setScene(new Scene(game));
+                gameStage.showAndWait();
+
             }
             catch (IOException e) {
                 e.printStackTrace();
             }
-            Parent root = loader.getRoot();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.showAndWait();
+
         });
 
-        startButton.setOnAction(event -> {
-            player2=true;
-            startButton.getScene().getWindow().hide();
-
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/sample/fxml/stage.fxml"));
-
+        settings.setOnMouseClicked(event -> {
             try {
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("/sample/fxml/settings.fxml"));
                 loader.load();
+                Parent root = loader.getRoot();
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.showAndWait();
             }
             catch (IOException e) {
                 e.printStackTrace();
             }
-            Parent root = loader.getRoot();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.showAndWait();
+        });
+        exit.setOnMouseClicked(event -> {
+            System.exit(0);
         });
     }
+
 }
 
 

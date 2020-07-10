@@ -1,14 +1,29 @@
 package sample.characters;
 
+import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import sample.animations.CharacterAnimation;
 
 
 import java.time.LocalTime;
 import java.util.List;
 
 abstract public class Characters {
+    ImageView player1Img,player2Img, weaponP1, weaponP2;
+    Image weapon1R;
+    Image weapon1L;
+    Image weapon2L;
+    Image weapon2R;
+    BonusImg bonusImg;
+    CharacterAnimation animation,animation2;
+    List<ImageView> levelList;
+    List<BulletImg> bulletsRP1;
+    List<BulletImg> bulletsRP2;
+    List<BulletImg> bulletsLP1;
+    List<BulletImg> bulletsLP2;
     String player1Name;
     String player2Name;
     double player1Health = 1.0;
@@ -21,6 +36,8 @@ abstract public class Characters {
     ProgressBar healthBar2;
     ProgressBar ammoBar1;
     ProgressBar ammoBar2;
+    Label countKillP1;
+    Label countKillP2;
     ImageView removeImgRP1 = null;
     ImageView removeImgRP2 = null;
     ImageView removeImgLP1 = null;
@@ -70,6 +87,9 @@ abstract public class Characters {
     boolean dieP1 = false;
     boolean dieP2 = false;
 
+    int countKP1 = 0;
+    int countKP2 = 0;
+
     boolean isBonus = false;
     int bonusCount = 0;
     int bonusWidth = 30;
@@ -85,134 +105,18 @@ abstract public class Characters {
 
     boolean enemySeeRight;
 
-    public Characters(AnchorPane pane, ProgressBar healthBar, ProgressBar healthBar2, ProgressBar ammoBar, ProgressBar ammoBar2) {
+    public Characters(AnchorPane pane, ProgressBar healthBar, ProgressBar healthBar2, ProgressBar ammoBar, ProgressBar ammoBar2,
+                      List<ImageView> levelList,Label countKillP1,Label countKillP2) {
         this.pane = pane;
         this.healthBar1 = healthBar;
         this.healthBar2 = healthBar2;
         this.ammoBar1 = ammoBar;
         this.ammoBar2 = ammoBar2;
+        this.levelList = levelList;
+        this.countKillP1 = countKillP1;
+        this.countKillP2 = countKillP2;
 
 
-    }
-
-    public String getPlayer1Name() {
-        return player1Name;
-    }
-
-    public void setPlayer1Name(String player1Name) {
-        this.player1Name = player1Name;
-    }
-
-    public double getPlayer1Health() {
-        return player1Health;
-    }
-
-    public void setPlayer1Health(double player1Health) {
-        this.player1Health = player1Health;
-    }
-
-    public int getPlayer1Speed() {
-        return player1Speed;
-    }
-
-    public void setPlayer1Speed(int player1Speed) {
-        this.player1Speed = player1Speed;
-    }
-
-    public AnchorPane getPane() {
-        return pane;
-    }
-
-    public void setPane(AnchorPane pane) {
-        this.pane = pane;
-    }
-
-    public ProgressBar getHealthBar1() {
-        return healthBar1;
-    }
-
-    public void setHealthBar1(ProgressBar healthBar1) {
-        this.healthBar1 = healthBar1;
-    }
-
-    public ProgressBar getAmmoBar1() {
-        return ammoBar1;
-    }
-
-    public void setAmmoBar1(ProgressBar ammoBar1) {
-        this.ammoBar1 = ammoBar1;
-    }
-
-    public int getWidthP1() {
-        return widthP1;
-    }
-
-    public void setWidthP1(int widthP1) {
-        this.widthP1 = widthP1;
-    }
-
-    public int getHeightP1() {
-        return heightP1;
-    }
-
-    public void setHeightP1(int heightP1) {
-        this.heightP1 = heightP1;
-    }
-
-    public int getxP1() {
-        return xP1;
-    }
-
-    public void setxP1(int xP1) {
-        this.xP1 = xP1;
-    }
-
-    public int getyP1() {
-        return yP1;
-    }
-
-    public void setyP1(int yP1) {
-        this.yP1 = yP1;
-    }
-
-    public boolean isInJumpP1() {
-        return inJumpP1;
-    }
-
-    public void setInJumpP1(boolean inJumpP1) {
-        this.inJumpP1 = inJumpP1;
-    }
-
-    public int getOffSetXP1() {
-        return offSetXP1;
-    }
-
-    public void setOffSetXP1(int offSetXP1) {
-        this.offSetXP1 = offSetXP1;
-    }
-
-    public int getOffSetYP1() {
-        return offSetYP1;
-    }
-
-    public void setOffSetYP1(int offSetYP1) {
-        this.offSetYP1 = offSetYP1;
-    }
-
-    public boolean isRunLeftP1() {
-        return runLeftP1;
-    }
-
-    public void setRunLeftP1(boolean runLeftP1) {
-        this.runLeftP1 = runLeftP1;
-    }
-
-    public boolean isRunRightP1() {
-        return runRightP1;
-    }
-
-    public void setRunRightP1(boolean runRightP1) {
-        this.runRightP1 = runRightP1;
     }
 
     public void start(){}

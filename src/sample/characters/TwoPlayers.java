@@ -1,40 +1,27 @@
 package sample.characters;
 
 import javafx.animation.AnimationTimer;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 import javafx.util.Duration;
-import sample.animations.PoliceAnimation;
-import java.io.IOException;
+import sample.animations.CharacterAnimation;
+import sample.animations.PlayerAnimation;
+import sample.animations.ReturnAnim;
+
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class PlayerVsPlayer extends Characters{
-    ImageView player1Img,player2Img, weaponP1, weaponP2;
-    Image weapon1R;
-    Image weapon1L;
-    Image weapon2L;
-    Image weapon2R;
-    BonusImg bonusImg;
-    PoliceAnimation animation,animation2,animationDie2,animationDie1;
-    List<ImageView> levelList;
-    List<BulletImg> bulletsRP1;
-    List<BulletImg> bulletsRP2;
-    List<BulletImg> bulletsLP1;
-    List<BulletImg> bulletsLP2;
+public class TwoPlayers extends Characters{
 
-    public PlayerVsPlayer(AnchorPane pane, ProgressBar healthBar,ProgressBar healthBar2,ProgressBar ammoBar,ProgressBar ammoBar2,
-                     List<ImageView> levelList){
-        super(pane,healthBar,healthBar2,ammoBar,ammoBar2);
+    public TwoPlayers(AnchorPane pane, ProgressBar healthBar, ProgressBar healthBar2, ProgressBar ammoBar, ProgressBar ammoBar2,
+                      List<ImageView> levelList, Label countKillP1,Label countKillP2){
+        super(pane,healthBar,healthBar2,ammoBar,ammoBar2,levelList,countKillP1,countKillP2);
         this.levelList = levelList;
         this.player1Name = "Policeman";
         this.player1Health = 1.0;
@@ -65,8 +52,6 @@ public class PlayerVsPlayer extends Characters{
 
 
 
-        Image player = new Image(getClass().getResourceAsStream("2_police_Run_002.png"));
-        Image player2 = new Image(getClass().getResourceAsStream("Terrorist_Run.png"));
 
         weapon1L = new Image(getClass().getResourceAsStream("weapon1L.png"));
         weapon1R = new Image(getClass().getResourceAsStream("weapon1R.png"));
@@ -74,17 +59,30 @@ public class PlayerVsPlayer extends Characters{
         weapon2L = new Image(getClass().getResourceAsStream("weapon2L.png"));
         weaponP1 = new ImageView(weapon1R);
         weaponP2 = new ImageView(weapon1R);
-        player1Img = new ImageView(player);
-        player2Img = new ImageView(player2);
-        player1Img.setViewport(new Rectangle2D(0,0, widthP1, heightP1));
-        player2Img.setViewport(new Rectangle2D(0,0, widthP2, heightP2));
-        player1Img.relocate(xP1, yP1);
-        player2Img.relocate(xP2, yP2);
-        animation = new PoliceAnimation(player1Img,5,6, offSetXP1, offSetYP1, widthP1, heightP1, Duration.millis(1000));
-        animation2 = new PoliceAnimation(player2Img,5,6, offSetXP2, offSetYP2, widthP2, heightP2, Duration.millis(1000));
-        //animationDie2 = new PoliceAnimation(player2Img,5,6, offSetXP2, offSetYP2, 85, 80, Duration.millis(1000));
 
-       // weapon = new ImageView("/sample/images/police/weapon1R.png");
+        PlayerAnimation player1Animation = new PlayerAnimation(pane);
+        ReturnAnim player1 = player1Animation.player1();
+        player1Img = player1.getImageView();
+        animation = player1.getAnimation();
+
+        PlayerAnimation player2Animation = new PlayerAnimation(pane);
+        ReturnAnim player2 = player2Animation.player2();
+        player2Img = player2.getImageView();
+        animation2 = player2.getAnimation();
+
+        //Image player = new Image(getClass().getResourceAsStream("2_police_Run_002.png"));
+       // Image player2 = new Image(getClass().getResourceAsStream("Terrorist_Run.png"));
+      //  player1Img = new ImageView(player);
+        //player2Img = new ImageView(player2);
+       // player1Img.setViewport(new Rectangle2D(0,0, widthP1, heightP1));
+        //player2Img.setViewport(new Rectangle2D(0,0, widthP2, heightP2));
+      //  player1Img.relocate(xP1, yP1);
+        //player2Img.relocate(xP2, yP2);
+      //  animation = new CharacterAnimation(player1Img,5,6, offSetXP1, offSetYP1, widthP1, heightP1, Duration.millis(1000));
+       // animation2 = new CharacterAnimation(player2Img,5,6, offSetXP2, offSetYP2, widthP2, heightP2, Duration.millis(1000));
+
+
+
         weaponP1.relocate(player1Img.getLayoutX()+26, player1Img.getLayoutY()+44);
         weaponP2.relocate(player2Img.getLayoutX()+26, player2Img.getLayoutY()+44);
 
@@ -103,11 +101,6 @@ public class PlayerVsPlayer extends Characters{
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-
-//             run(player1Img,player2Img,levelList,runLeftP1,canJumpP1,crossCountP1,MAX_DOWN,flyDownP1,runRightP1,runLeftP2,
-//                canJumpP2,flyDownP2,crossCountP2,runRightP2,levelP1,inJumpP1,FIRST_STAGE,yP1,flyUpP1,inJumpP2,flyUpP2,levelP2,yP2);
-
-
                move();run();jump();shooting();weapon();bonus();die();
 
             }
@@ -131,7 +124,7 @@ public class PlayerVsPlayer extends Characters{
         //todo Player2
         if (seeRightP2){
             weaponP2.relocate(player2Img.getLayoutX()+26, player2Img.getLayoutY()+44);
-            if (weapon1P1){
+            if (weapon1P2){
                 weaponP2.setImage(weapon1R);}if (weapon2P2){
                 weaponP2.setImage(weapon2R);}}
         if (seeLeftP2){
@@ -266,7 +259,7 @@ public class PlayerVsPlayer extends Characters{
         //todo Player1
        if (shotP1){
            bulletsRP1.forEach(bul->{
-               bul.relocate(bul.getLayoutX()+2,bul.getLayoutY());
+               bul.relocate(bul.getLayoutX()+7,bul.getLayoutY());
                if (bul.getLayoutX()>1000){
                    removeImgRP1 = bul;
                    System.out.println(bulletsRP1.size());}
@@ -280,7 +273,7 @@ public class PlayerVsPlayer extends Characters{
            bulletsRP1.remove(removeImgRP1);pane.getChildren().remove(removeImgRP1);
 
            bulletsLP1.forEach(bul->{
-            bul.relocate(bul.getLayoutX()-2,bul.getLayoutY());
+            bul.relocate(bul.getLayoutX()-7,bul.getLayoutY());
             if (bul.getLayoutX()<0){
                 removeImgLP1 = bul;
                 System.out.println(bulletsLP1.size());}
@@ -294,7 +287,7 @@ public class PlayerVsPlayer extends Characters{
         //todo Player2
         if (shotP2){
             bulletsRP2.forEach(bul->{
-                bul.relocate(bul.getLayoutX()+2,bul.getLayoutY());
+                bul.relocate(bul.getLayoutX()+7,bul.getLayoutY());
                 if (bul.getLayoutX()>1000){
                     removeImgRP2 = bul;
                     System.out.println(bulletsRP2.size());}
@@ -308,7 +301,7 @@ public class PlayerVsPlayer extends Characters{
             bulletsRP2.remove(removeImgRP2);pane.getChildren().remove(removeImgRP2);
 
             bulletsLP2.forEach(bul->{
-                bul.relocate(bul.getLayoutX()-2,bul.getLayoutY());
+                bul.relocate(bul.getLayoutX()-7,bul.getLayoutY());
                 if (bul.getLayoutX()<0){
                     removeImgLP2 = bul;
                     System.out.println(bulletsLP2.size());}
@@ -411,21 +404,7 @@ public class PlayerVsPlayer extends Characters{
                     flyUpP2 = true;
                     canJumpP2 = false;}}break;
                 case DOWN:break;
-                case ESCAPE:{
-                    FXMLLoader loader = new FXMLLoader();
-                    loader.setLocation(getClass().getResource("/sample/fxml/escMenu.fxml"));
-
-                    try {
-                        loader.load();
-                    }
-                    catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    Parent root = loader.getRoot();
-                    Stage stage = new Stage();
-                    stage.setScene(new Scene(root));
-                    stage.initOwner(pane.getScene().getWindow());
-                    stage.showAndWait();}break;
+                case ESCAPE:{ }break;
             }
         });
         pane.setOnMouseClicked(event -> {
@@ -460,14 +439,25 @@ public class PlayerVsPlayer extends Characters{
     @Override
     public void die() {
         if (player2Health <= 0 && seeLeftP2 && !dieP2){
+            countKP1++;
+            countKillP1.setText(String.valueOf(countKP1));
             //canJumpP2 = false;runLeftP2 = false;
             dieTime = LocalTime.now();
             dieP2 = true;
             Image player2Die = new Image(getClass().getResourceAsStream("Terrorist_Die.png"));
-            player2Img.setImage(player2Die);animation2.setWidth(80);animation2.setDuration(Duration.millis(3100));
-            animation2.play();
+            player2Img.setImage(player2Die);animation2.setWidth(80);animation2.setColumns(5);animation.setCount(5);
+            animation2.setDuration(Duration.millis(1800));animation2.play();
         }
-        if (dieP2 && dieTime.plusSeconds(1).isBefore(LocalTime.now())){animation2.stop();}
+        if (dieP2 && dieTime.plusNanos(900000000).isBefore(LocalTime.now())){animation2.stop();pane.getChildren().remove(weaponP2);}
+        if (dieP2 && dieTime.plusSeconds(5).isBefore(LocalTime.now())){pane.getChildren().remove(player2Img);}
+        if (dieP2 && dieTime.plusSeconds(7).isBefore(LocalTime.now())){
+            player2Health = 1.0;healthBar2.setProgress(player2Health);dieP2 = false;
+            PlayerAnimation player2Animation = new PlayerAnimation(pane);
+            ReturnAnim player2 = player2Animation.player2();
+            player2Img = player2.getImageView();
+            animation2 = player2.getAnimation();
+            pane.getChildren().addAll(player2Img,weaponP2);
+        }
     }
 
     @Override
@@ -520,7 +510,7 @@ class BulletImg extends ImageView{
     }
 }
 enum BulletDamage{
-    BULLET(0.02),BULLET_A(0.05);
+    BULLET(0.02),BULLET_A(0.5);
 
    private double damage;
 

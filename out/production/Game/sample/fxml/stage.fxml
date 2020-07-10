@@ -6,6 +6,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="menuPane" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="683.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.ControllerGame">
     <children>
@@ -26,5 +27,19 @@
       <Label layoutX="10.0" layoutY="21.0" prefHeight="17.0" prefWidth="39.0" text="Ammo" />
       <Label layoutX="975.0" layoutY="21.0" prefHeight="17.0" prefWidth="39.0" text="Ammo" />
       <Label layoutX="975.0" layoutY="6.0" prefHeight="17.0" prefWidth="39.0" text="Health" textAlignment="CENTER" />
+      <Label fx:id="player1Name" layoutX="200.0" layoutY="7.0" prefHeight="31.0" prefWidth="83.0" wrapText="true">
+         <font>
+            <Font name="System Bold Italic" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="player2Name" alignment="CENTER_RIGHT" layoutX="738.0" layoutY="7.0" prefHeight="31.0" prefWidth="83.0" textAlignment="RIGHT" wrapText="true">
+         <font>
+            <Font name="System Bold Italic" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="killP1" layoutX="10.0" layoutY="45.0" text="Kills" />
+      <Label fx:id="countKillP1" layoutX="46.0" layoutY="45.0" text="0" />
+      <Label fx:id="killP2" layoutX="984.0" layoutY="45.0" text="Kills" />
+      <Label fx:id="countKillP2" layoutX="962.0" layoutY="45.0" text="0" />
     </children>
 </AnchorPane>

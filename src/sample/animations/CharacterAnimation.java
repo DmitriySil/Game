@@ -9,18 +9,18 @@ import javafx.util.Duration;
 
 
 
-public class PoliceAnimation extends Transition {
-    private final ImageView imageView;
-    private final int count;
-    private final int columns;
+public class CharacterAnimation extends Transition {
+    final ImageView imageView;
+    private int count;
+    private int columns;
     private int offSetX;
     private int offSetY;
     private int width;
     private int height;
     private Duration duration;
 
-    public PoliceAnimation(ImageView imageView, int count, int columns, int offSetX,
-                     int offSetY, int width, int height, Duration duration) {
+    public CharacterAnimation(ImageView imageView, int count, int columns, int offSetX,
+                              int offSetY, int width, int height, Duration duration) {
         this.imageView = imageView;
         this.count = count;
         this.columns = columns;
@@ -29,7 +29,7 @@ public class PoliceAnimation extends Transition {
         this.width = width;
         this.height = height;
         setCycleDuration(duration);
-        setCycleCount(PoliceAnimation.INDEFINITE);
+        setCycleCount(CharacterAnimation.INDEFINITE);
         setInterpolator(Interpolator.LINEAR);
         this.imageView.setViewport(new Rectangle2D(offSetX,offSetY,width,height));
     }
@@ -59,6 +59,22 @@ public class PoliceAnimation extends Transition {
 
     public void setDuration(Duration duration) {
         this.duration = duration;
+    }
+
+    public int getColumns() {
+        return columns;
+    }
+
+    public void setColumns(int columns) {
+        this.columns = columns;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 
     @Override
